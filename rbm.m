@@ -30,6 +30,7 @@ initialmomentum  = 0.5;
 finalmomentum    = 0.9;
 
 [numcases numdims numbatches]=size(batchdata);
+numbatches = 100; % accelerate debug process
 
 if restart ==1,
   restart=0;

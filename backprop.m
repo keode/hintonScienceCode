@@ -60,6 +60,7 @@ for epoch = 1:maxepoch
 %%%%%%%%%%%%%%%%%%%% COMPUTE TRAINING RECONSTRUCTION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 err=0; 
 [numcases numdims numbatches]=size(batchdata);
+numbatches = 100; % accelerate debug;
 N=numcases;
  for batch = 1:numbatches
   data = [batchdata(:,:,batch)];
@@ -81,7 +82,7 @@ N=numcases;
 %%%% DISPLAY FIGURE TOP ROW REAL DATA BOTTOM ROW RECONSTRUCTIONS %%%%%%%%%%%%%%%%%%%%%%%%%
 fprintf(1,'Displaying in figure 1: Top row - real data, Bottom row -- reconstructions \n');
 output=[];
- for ii=1:15
+ for ii=1:1
   output = [output data(ii,1:end-1)' dataout(ii,:)'];
  end
    if epoch==1 
@@ -95,6 +96,7 @@ output=[];
 
 %%%%%%%%%%%%%%%%%%%% COMPUTE TEST RECONSTRUCTION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [testnumcases testnumdims testnumbatches]=size(testbatchdata);
+testnumbatches = 100; % accelerate debug
 N=testnumcases;
 err=0;
 for batch = 1:testnumbatches
@@ -116,16 +118,17 @@ for batch = 1:testnumbatches
 %%%%%%%%%%%%%% END OF COMPUTING TEST RECONSTRUCTION ERROR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
  tt=0;
- for batch = 1:numbatches/10
+ for batch = 1:numbatches
  fprintf(1,'epoch %d batch %d\r',epoch,batch);
+ data = batchdata(:,:,batch);
 
 %%%%%%%%%%% COMBINE 10 MINIBATCHES INTO 1 LARGER MINIBATCH %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- tt=tt+1; 
- data=[];
- for kk=1:10
-  data=[data 
-        batchdata(:,:,(tt-1)*10+kk)]; 
- end 
+%  tt=tt+1; 
+%  data=[];
+%  for kk=1:10
+%   data=[data 
+%         batchdata(:,:,(tt-1)*10+kk)]; 
+%  end 
 
 %%%%%%%%%%%%%%% PERFORM CONJUGATE GRADIENT WITH 3 LINESEARCHES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   max_iter=3;

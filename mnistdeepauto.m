@@ -31,6 +31,7 @@ fprintf(1,'The Science paper used 50 epochs. This uses %3i \n', maxepoch);
 
 makebatches;
 [numcases numdims numbatches]=size(batchdata);
+% numbatch = 100; % accelerate debug process;
 
 fprintf(1,'Pretraining Layer 1 with RBM: %d-%d \n',numdims,numhid);
 restart=1;
